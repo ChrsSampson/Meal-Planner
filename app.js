@@ -31,19 +31,24 @@ const getDay = () => {
 
 // create new users and keep track of user list
 function createUser(username){
-    if(localStorage.userIndex > 0){
-        userIndex++
-       
-        localStorage.setItem(username[userIndex], username);
-    }
-    else{
-        localStorage.setItem(userIndex, 1)
-        localStorage.setItem(username[userIndex], username);
-    }
+    let oldUsrs = localStorage.getItem('users');
+    
+    let newUsr = username;
+
+    oldUsrs.push(newUsr);
+
+   localStorage.setItem('users', oldUsrs);
 }
 
+// Compile user list and show users
 function showUserList(){
-
+    localStorage.forEach((username, i) => {
+        let usr = localStorage.getItem(username[i]);
+        let listItem = document.createElement('li');
+        listItem.textContent = usr;
+        userList.appendChild(listItem);
+    });
+    userList.classList.remove(hidden);
 }
 
 const getRandomWeeklyMeals = () => {};
@@ -68,6 +73,11 @@ btnContainer.addEventListener('click', (e) => {
         showUserList();
     }
 });
+
+userList.onclick = (e) => {
+    name = e.target.textContent;
+    userList.classList.add(hidden);
+}
 
 
 
