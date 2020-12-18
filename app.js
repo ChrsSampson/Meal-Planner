@@ -79,21 +79,26 @@ const getDay = () => {
 function createUser(username){
     let newUsr = ''
 
-    if(!localStorage.getItem('users') == null){
+    if(localStorage.getItem('users') == null){
 
-        console.error("local storage blank")
+        oldUsrs = [username]
 
-        let oldUsrs = localStorage.getItem('users')
+        localStorage.setItem('users', JSON.stringify(oldUsrs));
 
-        oldUsrs = JSON.parse(oldUsrs);
+        user = username
+
+        showStartScreen(user, getDay());
     }
     // Check input for not blank
     else if(username != ""){
-        let oldUsrs = localStorage.getItem('users')
+
+        let oldUsrs = localStorage.getItem('users');
         oldUsrs = JSON.parse(oldUsrs);
 
         newUsr = username;
-        
+
+            console.info(oldUsrs)
+
         oldUsrs.push(newUsr);
 
         console.log(oldUsrs);
